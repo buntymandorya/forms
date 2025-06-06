@@ -1,0 +1,1 @@
+web: gunicorn Taarini123.wsgi
