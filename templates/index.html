@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Freelancer Registration Form</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <form id="userForm" method = 'post'>
+    {% csrf_token %}
+    <h1>Taarini Infotech LLP</h1>
+    <h2>Freelancer Registration Form</h2>
+
+    <label>Name:
+      <input type="text" name="name" placeholder="Name" required />
+    </label>
+     <label>Date of Birth:
+      <input type="date" name="dob" required />
+    </label> 
+    <label for="country">Country:
+<select name="country" id="country" required>
+    <option value="">Select Country</option>
+    {% for code, name in country_choices %}
+        <option value="{{ code }}">{{ name }}</option>
+    {% endfor %}
+</select>
+  </label>
+
+    <label>state:
+      <input type="text" name="states" placeholder="state" required />
+    </label>
+    
+     <label>City:
+    <input type="text" name="city" placeholder="Your City" required />
+    </label> 
+
+   
+
+    <!-- country -->
+<!-- All countries -->
+<!-- Code and Name -->
+
+ 
+   
+
+<label>Gender:
+  <select name="gender" required>
+    <option value="">Select Gender</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select>
+</label>
+
+    <label>Educational Qualification:
+      <input type="text" name="educational" placeholder="e.g., Graduate, Postgraduate, Diploma" required />
+    </label>
+
+<label>Languages Known:</label>
+<div class="dropdown">
+  <input type="text" id="languagesInput" placeholder="Selected languages will appear here" readonly />
+  <div class="dropdown-content">
+    {% for cod, nam in language_choices %}
+      <label>
+        <input type="checkbox" name="languages" value="{{ cod }}"> {{ nam }}
+      </label>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+  <label>Expertise Areas:</label>
+<div class="dropdown">
+  <input type="text" id="expertiseInput" placeholder="Selected areas will appear here" readonly />
+  <div class="dropdown-content">
+    {% for cod, nam in expertise_choices %}
+      <label>
+        <input type="checkbox" name="expertise" value="{{ cod }}"> {{ nam }}
+      </label>
+    {% endfor %}
+  </div>
+</div>
+
+
+    <label>Email ID:
+      <input type="email" name="email" placeholder="Email ID"  required />
+    </label>
+<label>Other Language:
+      <input type="text" name="otherLanguage" placeholder="Text Language"  />
+    </label> 
+    <label>Mobile No. (WhatsApp):
+      <input type="tel" name="mobile" placeholder="Mobile No" pattern="[0-9]{10}" required />
+    </label>
+
+    <label>Available Working Hours:
+      <input type="text" name="hours" placeholder="e.g., 4 hours/day, 20 hours/week" required />
+    </label>
+
+    <label>Experience on Tools:
+      <input type="text" name="tools" placeholder="Ex. AMVIK, Loft, Praat" required />
+    </label>
+
+    <label>Past Project Experience:
+      <input type="text" name="project" placeholder="Brief info or client names (if allowed)" required />
+    </label>
+
+    <label>Own Equipment:
+      <input type="text" name="equipment" placeholder="eg. Laptop,PC,etc." required />
+    </label>
+
+    <label>Skills/Certifications:
+      <input type="text" name="skills" placeholder="software training, language certificates" required />
+    </label>
+    
+    <label>LinkedIn / YouTube/Portfolio (if any):
+      <input type="url" class="url" name="link" placeholder="Optional link"/>
+    </label>
+
+    <label>Referred By (if any):
+      <input type="text" name="referred" placeholder="Name of person/organization"/>
+    </label>
+
+    <h3>Terms & Consent</h3>
+    <p>✅ Your personal data will be kept strictly confidential and used only for project-related communication. <br>
+    ✅ By submitting this form, you grant Taarini Infotech LLP permission to contact you via email or phone for suitable project opportunities. <br>
+    ✅ You may opt out at any time by notifying us.</p> 
+    <button type="submit" class="submit-btn" onclick="return showPopup()">Submit</button>
+  </form>
+  {% if success %}
+<script>
+  window.onload = function() {
+    alert("✅ Form submitted successfully! We’ll contact you soon.");
+  }
+</script>
+{% endif %}
+<script>
+  const langInput = document.getElementById('languagesInput');
+  const langCheckboxes = document.querySelectorAll('input[name="languages"]');
+
+  langCheckboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      const selected = Array.from(langCheckboxes)
+        .filter(chk => chk.checked)
+        .map(chk => chk.value);
+      langInput.value = selected.join(', ');
+    });
+  });
+</script>
+<script>
+  const expertiseInput = document.getElementById('expertiseInput');
+  const checkboxes = document.querySelectorAll('input[name="expertise"]');
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      const selected = Array.from(checkboxes)
+        .filter(chk => chk.checked)
+        .map(chk => chk.value);
+      expertiseInput.value = selected.join(', ');
+    });
+  });
+</script>
+</body>
+</html>
